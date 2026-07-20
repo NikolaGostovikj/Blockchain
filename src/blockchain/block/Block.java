@@ -8,8 +8,9 @@ public class Block {
     private final String previousHash;
     private long timeStamp;
     private long nonce;
+    private List<Transaction> transactions;
 
-    public Block(String previousHash, String hash) {
+    public Block(String previousHash) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();

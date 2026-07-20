@@ -4,10 +4,10 @@ public class Transactions {
 
     private String sender;
     private String receiver;
-    private String amount;
+    private long amount;
     private String timestamp;
 
-    public Transactions(String sender, String receiver, String amount, String timestamp) {
+    public Transactions(String sender, String receiver, long amount, String timestamp) {
         this.sender = sender;
         this.receiver = receiver;
         this.amount = amount;
