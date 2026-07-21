@@ -1,19 +1,20 @@
 package blockchain.block;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.util.Date;
+import java.util.List;
+
+import static blockchain.block.Util.calculateHash;
 
 public class Block {
     private String hash;
     private final String previousHash;
     private long timeStamp;
     private long nonce;
-    private List<Transaction> transactions;
+    private List<Transactions> transactions;
 
     public Block(String previousHash) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
-        this.hash = calculateHash();
+        this.hash = calculateHash(previousHash, timeStamp, nonce);
     }
 
 
@@ -21,33 +22,14 @@ public class Block {
     Hash function which uses previous hash, timestamp and nonce
     Used StringBuffer for concurrency, and SHA-256
      */
-    public String calculateHash() {
-        String hash = previousHash + Long.toString(timeStamp) + Long.toString(nonce);
-        MessageDigest digest = null;
-        byte[] hashedBytes = null;
 
-        try{
-
-            digest = MessageDigest.getInstance("SHA-256");
-            hashedBytes = digest.digest(hash.getBytes());
-
-        }catch(Exception e){
-
-            Logger.ERROR.log(e.getMessage());
-            e.printStackTrace();
-
+    public void mineBlock(int difficulty) {
+        String target = "0".repeat(difficulty);
+        while (!hash.substring(0, difficulty).equals(target)) {
+            nonce++;
+            hash = calculateHash(previousHash, timeStamp, nonce);
         }
-
-        StringBuffer buffer = new StringBuffer();
-        for ( byte b : hashedBytes) {
-            buffer.append(String.format("%02x", b));
-        }
-
-        return buffer.toString();
-
     }
-
-
 
 
 }
