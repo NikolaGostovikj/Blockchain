@@ -11,6 +11,7 @@ public class Block {
     private long nonce;
     private List<Transactions> transactions;
 
+
     public Block(String previousHash) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();

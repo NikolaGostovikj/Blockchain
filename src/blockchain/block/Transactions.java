@@ -13,6 +13,8 @@ public class Transactions {
     private PublicKey publicKey;
     private PrivateKey privateKey;
     private byte[] signature;
+    private final List<TransactionInput> inputs;
+    private final List<TransactionOutput> outputs = new ArrayList<>();
 
     public Transactions(String sender, String receiver, long amount, String timestamp) {
         this.sender = sender;
